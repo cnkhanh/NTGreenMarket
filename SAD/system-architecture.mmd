@@ -36,7 +36,7 @@ Phase 1: Supabase PostgreSQL  →  Phase 2: Azure Database for PostgreSQL Flexib
   end
  subgraph STORAGE["File Storage · S3-compatible API
 Phase 1: Supabase Storage 1 GB free  →  Phase 2: Azure Blob Storage
-Product images · Shop banners · max 2 MB · JPEG / PNG / WebP"]
+Product images · Shop banners · max 1 MB · JPEG / PNG / WebP"]
         OBJ[("Object Store\nURL reference\nsaved in DB")]
   end
     BU -- HTTPS --> Frontend

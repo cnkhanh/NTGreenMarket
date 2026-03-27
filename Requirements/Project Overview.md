@@ -6,10 +6,10 @@ NT Green Market is a company-wide, month-long initiative that brings employees t
 
 ## Goals
 
+- **Raise money for charity** — all profits and donations fund charitable organizations
 - Foster a sense of community and social responsibility among employees
 - Provide a platform for employee creativity and entrepreneurship
-- Support charitable causes through fundraising
-- Create a fun, engaging internal marketplace experience
+- Create a fun, engaging internal marketplace experience that drives participation
 
 ## Event Format
 
@@ -21,7 +21,9 @@ NT Green Market is a company-wide, month-long initiative that brings employees t
 ## Audience & Scale
 
 - Internal use only — NashTech employees
+- **Target demographics:** Gen Z and late Gen Y
 - Expected user base: up to ~1,500 users
+- **Design implication:** Playful, mobile-first, mission-driven tone (not corporate)
 
 ## Deployment Strategy
 
@@ -36,16 +38,16 @@ NT Green Market is a company-wide, month-long initiative that brings employees t
 
 ## Epics
 
-| ID | Epic | Description |
-|---|---|---|
-| EP-01 | User Authentication & Access | Login and role-based access for Buyers, Sellers, and Admins |
-| EP-02 | Admin - Manage Event | Admins configure and oversee the event lifecycle |
-| EP-03 | Admin - Manage Users | Admins manage employee accounts and role assignments |
-| EP-04 | Donations | Employees browse and donate to participating charities |
-| EP-05 | Seller - Shop & Product Management | Sellers create and manage their shops and product listings |
-| EP-07 | Buyer - Browse & Order | Buyers discover products, place orders, and track them to fulfilment |
-| EP-08 | Event Timeline & Countdown | Event schedule and countdown displayed to all users |
-| EP-09 | Game | In-platform game or activity to encourage employee participation |
+| ID | Epic | Description | Priority |
+|---|---|---|---|
+| EP-01 | User Authentication & Access | Self-registration, login, and role-based access (Buyer, Seller, Admin) | High |
+| EP-02 | Manage Event | Configure, publish, and close the event lifecycle | High |
+| EP-04 | Direct Donations | Anyone can donate to the event charity fund; progress bar and leaderboard | High |
+| EP-05 | Shop & Product Management | Sellers create and manage their shops and product listings | High |
+| EP-07 | Browse & Order | Discover products, place orders, and track them to pick-up | High |
+| EP-03 | Manage Users | Assign Seller and Admin roles per event; manage user access | High |
+| EP-08 | Event Timeline & Countdown | Event schedule and countdown visible to all visitors | Medium |
+| EP-09 | Lucky Draw | *(Deferred)* Earn draw entries through purchases and donations | Low |
 
 > Full epic details and user stories are in [Epics/](Epics/).
 

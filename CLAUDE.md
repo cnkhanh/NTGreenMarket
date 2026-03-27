@@ -6,8 +6,9 @@ This file guides Claude Code when working in this repository, including Figma MC
 
 ## Project Overview
 
-NT Green Market is an internal company marketplace platform. See [Requirements/Project Overview.md](Requirements/Project Overview.md) for full context.
+NT Green Market is an internal charity fundraising platform masked as a marketplace. All profits and donations go to charities. See [Requirements/Project Overview.md](Requirements/Project Overview.md) for full context.
 
+**Core mission:** Raise money for charity through employee participation
 **Roles:** Employee (Buyer), Employee (Seller), Admin
 **Key flows:** Charity donations, shop creation, product listing, order placement, admin dashboard
 
