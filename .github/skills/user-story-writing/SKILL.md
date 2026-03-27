@@ -1,5 +1,5 @@
 ---
-name: user-story-writing
+name: writing-user-stories
 description: Creates and refines user stories with acceptance criteria using the NT standard template. Use for user story drafting and refinement.
 ---
 
@@ -52,7 +52,7 @@ When a requirement is received, first **analyze and identify**:
 
 ### 4. Handling Input Cases
 - If requirement comes without a user story  **ask for it first**.
-- If a user story is too large (cannot be delivered in 1 weekby 1 manual developer)  **split into smaller stories** and prepare details for each.
+- If a user story is too large (cannot be delivered in 1 week)  **split into smaller stories** and prepare details for each.
 
 ### 5. Naming & Client Handling
 - Always **generalize client names**.
@@ -74,7 +74,7 @@ See [references/USER-STORY-TEMPLATE.md](references/USER-STORY-TEMPLATE.md).
 ## Best Practices
 1. Always align with **NT's standard (User Story Sample)**.
 2. Fill missing info with **best practice assumptions**.
-3. Follow **INVEST** principles (Independent, Negotiable, Valuable, Estimable, Small, Testable).
+3. Keep stories **small, testable, and deliverable**.
 4. Ask clarifying questions before finalizing.
 5. Always request **user feedback** for refinement.
 6. When writing Acceptance Criteria in **Gherkin format**, always prefix with the AC ID in bold (e.g., **AC01**, **AC02**) followed by a descriptive title (do not include the word "Scenario"). If multiple test scenarios exist for the same AC, use sub-numbering (e.g., **AC02.1**, **AC02.2**, **AC02.3**), and format the Gherkin keywords in bold and indented. If the **Given**, **When**, or **Then** items are short, keep the **And** on the same line for easier readability; otherwise indent the **And** for clarity.

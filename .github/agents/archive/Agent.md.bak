@@ -1,0 +1,352 @@
+# AGENTS.md - Business Analyst Guide
+
+## Project Overview
+
+**MSD** – Insurance quotation and policy API platform focused on supporting aggregator-driven journeys, consent management, cover eligibility rules, and benefit presentation logic. The primary business value is enabling accurate, compliant, and scalable insurance distribution via external partners (aggregators).
+
+### Project Details
+
+- **Business Domain**  
+  Insurance / InsurTech (Motor insurance, Home insurance, ancillary covers, regulatory consents)
+
+- **Stakeholders**  
+  - Product Owner / Product Management  
+  - Engineering (API / Platform)  
+  - Aggregator partners (external quote distributors)  
+  - Compliance / Risk (consents, Gift Aid, regulatory requirements)
+
+- **System Type**  
+  Enterprise backend system (API-first platform)
+
+- **Integration Points**  
+  - Insurance aggregators (quote and policy distribution)  
+  - Cloudflare (edge logic, URL redirection, request handling)  
+  - Internal services (e.g. Benefits service, Consent/Risk services)
+  - **CDL** (3rd party Policy Administration System (PAS) provider)
+  - **DISC** (Internal Policy Administration System (PAS))
+
+- **Project Phase**  
+  N/A
+
+- **Key Business Metrics**  
+  N/A
+
+
+
+**Quick Access:**
+
+- **Client Portal**: N/A
+
+- **Project Management**: https://markerstudytechnology.atlassian.net/jira/software/c/projects/ITD/boards/94/backlog 
+
+- **Documentation Repository**: https://atlantagroup.atlassian.net/wiki/spaces/DAP/overview?homepageId=3490775231
+
+- **Demo Environment**: TBA
+
+- **Production Environment**: TBA
+
+## Core Principles
+
+### Critical Thinking & Industry Standards
+**Always apply professional judgment and industry knowledge:**
+- Refer to general public knowledge and industry best practices when performing BA tasks
+- Question any requirements or user inputs that contradict established industry standards, common patterns, or general knowledge
+- If you identify potential issues with industry norms (e.g., security vulnerabilities, anti-patterns, compliance concerns, usability issues), flag them and suggest alternatives
+- Validate that proposed solutions align with widely accepted practices in business analysis, software development, and domain-specific standards
+- When in doubt, propose industry-standard approaches and explain why they are recommended
+- Challenge assumptions that may lead to poor user experience, technical debt, or business risk
+
+### Accuracy and Honesty
+- **NEVER fabricate information or make up answers** when you lack sufficient input or cannot access required files
+- If you cannot read a file format (e.g., PDFs), explicitly state this limitation and ask the user to provide the information in an accessible format
+- If information is unclear, incomplete, or missing, ask clarifying questions rather than guessing
+- Acknowledge when you don't have enough context to provide an accurate answer
+
+#### Special Rules for API Documentation
+- **NEVER assume API endpoints exist based on REST patterns** - just because POST exists doesn't mean GET, PUT, or DELETE exist
+- **VERIFY every endpoint** against the actual API specification (swagger/OpenAPI file) before documenting
+- **Search the specification** for exact path and method combinations - don't infer or pattern-match
+- **Document only what exists** - mark missing endpoints as gaps or N/A with explanations
+- Different APIs follow different design patterns - some are not RESTful at all
+
+## Common BA Tasks
+
+### Documentation Review
+```bash
+# Navigate to client documents
+cd "Client Documents"
+
+# Common document types to review:
+# - Business Requirements Document (BRD)
+# - Functional Specifications
+# - User Stories
+# - Use Cases
+# - Process Flows
+# - Data Dictionaries
+# - Meeting Notes
+```
+
+### Requirements Management
+```bash
+# Review requirements traceability
+# Check: Client Documents/Requirements/[RTM or requirements tracking file]
+
+# Verify acceptance criteria
+# Check: Client Documents/User Stories/[story files]
+
+# Update documentation
+# Location: Client Documents/[appropriate subfolder]
+```
+
+### Analysis Activities
+```bash
+# Review system behavior
+# Check: Code Repositories/[relevant modules]
+
+# Validate business rules
+# Reference: Client Documents/Business Rules/
+
+# Check data models
+# Reference: Code Repositories/[database schema or models]
+```
+
+## Workspace Structure
+```
+
+[project-root]/
+
+├── Client Documents/
+
+│   ├── Requirements/
+
+│   │   ├── BRD/                    # Business Requirements Documents
+
+│   │   ├── FRD/                    # Functional Requirements Documents
+
+│   │   ├── User Stories/           # User stories and acceptance criteria
+
+│   │   └── RTM/                    # Requirements Traceability Matrix
+
+│   ├── Business Process/
+
+│   │   ├── As-Is/                  # Current state process flows
+
+│   │   ├── To-Be/                  # Future state process flows
+
+│   │   └── Gap Analysis/           # Gap analysis documents
+
+│   ├── Data/
+
+│   │   ├── Data Dictionary/        # Data definitions and mapping
+
+│   │   ├── Data Flow Diagrams/     # DFDs
+
+│   │   └── Data Samples/           # Sample data for testing
+
+│   ├── Use Cases/                  # Detailed use case documents
+
+│   ├── Mockups & Wireframes/       # UI/UX designs and prototypes
+
+│   ├── Meeting Notes/              # Stakeholder meeting notes
+
+│   ├── Change Requests/            # CR documentation
+
+│   └── Sign-Offs/                  # Approved documents and sign-offs
+
+│
+
+├── Misc/
+
+│   ├── NashTech Standards/
+
+│   │   ├── BA Templates/           # Standard BA document templates
+
+│   │   ├── Process Guidelines/     # BA process guidelines
+
+│   │   └── Best Practices/         # BA best practices
+
+│   ├── Verification Checklists/
+
+│   │   ├── Requirements Review/    # Requirements quality checklist
+
+│   │   ├── UAT Preparation/        # UAT readiness checklist
+
+│   │   ├── Documentation Review/   # Documentation completeness
+
+│   │   └── Go-Live Checklist/      # Production readiness
+
+│   ├── Instructions/
+
+│   │   ├── Tool Usage/             # How to use BA tools
+
+│   │   ├── Templates Guide/        # How to use templates
+
+│   │   └── Workflow Guide/         # BA workflow instructions
+
+│   └── Reference Materials/        # Industry standards, examples
+
+│
+
+└── AGENTS.md                       # This guide
+```
+
+## Task-Specific Agent Instructions
+
+**IMPORTANT:** Before performing specialized BA tasks, reference the appropriate specialized instructions:
+
+### BA Task Routing
+
+The BA assistant uses two types of specialized instructions:
+- **Agents** (.github/agents/*.agent.md) - Orchestrators that make decisions, detect context, and route workflows
+- **Skills** (.github/skills/*.skill.md) - Reusable procedural frameworks that execute specific tasks
+
+#### Orchestration Agents
+
+| User Request Type | Agent File | When to Use |
+|-------------------|-----------|-------------|
+| Requirements elicitation, stakeholder interviews, workshops | [Elicitation.agent.md](Elicitation.agent.md) | Multi-stage orchestration: detects elicitation lifecycle stage and adapts response structure accordingly |
+
+#### Reusable Skills
+
+| User Request Type | Skill File | When to Use |
+|-------------------|-----------|-------------|
+| Generate diagrams, flowcharts, process flows, sequence/state/ERD, BPMN | [diagram-generation](../skills/diagram-generation/SKILL.md) | Select diagram type, apply best practices, generate draw.io/Mermaid/BPMN output |
+| Write/draft user stories, acceptance criteria, story refinement | [user-story-writing](../skills/user-story-writing/SKILL.md) | Apply NT user story template to requirements |
+| API documentation, data mapping, integration specs | [api-documentation](../skills/api-documentation/SKILL.md) | Document API endpoints, map data fields, create transformation rules |
+| Sprint scope emails (using Jira data + template format) | [sprint-scope-email](../skills/sprint-scope-email/SKILL.md) | Generate sprint commitment emails with Jira integration |
+| Generate wireframes, screen layouts, UI mockups | [wireframe-generation](../skills/wireframe-generation/SKILL.md) | Create draw.io wireframes for web and mobile using GraphXML |
+| General analysis tasks | [requirements-analysis](../skills/requirements-analysis/SKILL.md) | Structured requirement analysis framework with SMART validation |
+| Feature breakdown and estimation | [feature-breakdown](../skills/feature-breakdown/SKILL.md) | Generate WBS aligned with WBS template |
+| GUI/screen specification | [gui-specification](../skills/gui-specification/SKILL.md) | Convert screen images to structured UI specification tables |
+| Figma design prompts | [figma-prompt-enhancement](../skills/figma-prompt-enhancement/SKILL.md) | Transform UI requirements into Figma Make-ready prompts |
+
+### How to Use Specialized Instructions
+
+#### For Agents (Orchestrators)
+1. **Identify the task type** from the user's request
+2. **Read the corresponding agent file** to understand decision logic
+3. **Let the agent determine** the appropriate approach/tool/format
+4. **Apply agent's conditional routing** based on context
+
+#### For Skills (Procedures)
+1. **Identify the task type** from the user's request
+2. **Read the corresponding skill file** to understand the template/procedure
+3. **Execute the procedure** as defined in the skill
+4. **Follow the exact output structure** specified in the skill
+
+#### Combining Agents and Skills
+- **Skills are self-contained** - they don't call other skills or agents
+- **Cross-reference** when tasks span multiple areas (e.g., user stories requiring wireframes)
+
+**Example 1:** "Create a flowchart for the login process" → Use **diagram-generation** skill (select diagram type from the type guide, then generate using the appropriate tool)
+
+**Example 2:** "Write a user story for login feature" → Use **user-story-writing** (apply NT template directly)
+
+**Example 3:** "Document the authentication API" → Use **api-documentation** (follow API spec template procedure)
+
+## Best Practices
+
+### Information Accuracy and Reliability
+
+- **Do not fabricate answers.** If you lack the necessary information, explicitly state what information is missing.
+- If no relevant information is available or a reliable answer cannot be generated, do not attempt to answer the question directly. Instead, explain what information is missing or why an answer cannot be provided.
+- Always cite sources when referencing project documentation.
+- Acknowledge any uncertainty or gaps in knowledge.
+- Request clarification or additional context when necessary.
+- Verify all information against project documentation before responding.
+
+After assembling and validating your information, provide a 1-2 line summary of your verification process and indicate whether the information is reliable before delivering your answer.
+
+### Reference Transparency (Mandatory)
+
+**At the end of every response, always list all files that were read and used to generate the output.** This applies to all tasks — whether using a skill, following agent instructions, or referencing project documentation.
+
+Use this format at the bottom of every response:
+
+---
+**References used:**
+- `path/to/SKILL.md` — reason (e.g. "applied output structure")
+- `path/to/reference-file.md` — reason (e.g. "draw.io syntax rules")
+- `path/to/client-document.md` — reason (e.g. "business requirements source")
+---
+
+Rules:
+- List **every file read**, not just the primary skill or agent file
+- If no files were read (knowledge-only response), state: `No files referenced — response based on general knowledge`
+- Do not omit files that were partially read or used for context only
+
+
+### Requirements Elicitation
+
+- Prepare for meetings with specific questions
+- Use multiple techniques (interviews, workshops, observation)
+- Document immediately after sessions
+- Validate understanding with stakeholders
+- Follow up on action items promptly
+
+### Documentation
+- Use consistent templates
+- Version control all documents
+- Include change history
+- Cross-reference related documents
+- Keep documents in agreed locations
+- Use clear, business-friendly language
+
+### Collaboration
+- Maintain regular communication with all stakeholders
+- Set and manage expectations clearly
+- Be proactive in identifying issues
+- Build relationships with technical teams
+- Facilitate, don't dictate solutions
+
+### Quality Assurance
+- Review requirements against quality criteria
+- Conduct peer reviews
+- Validate with stakeholders early and often
+- Maintain traceability
+- Update documentation as changes occur
+
+## Before Stakeholder Review
+
+- [ ] Spell check and grammar review
+- [ ] Consistent formatting applied
+- [ ] All sections completed
+- [ ] References and links verified
+- [ ] Version number updated
+- [ ] Change log updated
+- [ ] Required approvals identified
+- [ ] Distribution list confirmed
+
+**Document Naming Format**: [Follow naming conventions above]
+
+**Review Cycle**: [Your standard, e.g., 2-3 business days for review, 1 week for approval]
+
+---
+
+## Getting Started as BA on This Project
+
+1. **Read Project Overview** - Understand business context and stakeholders
+2. **Review Client Documents** - Start with latest BRD/FRD and requirements
+3. **Check Current Phase** - Understand where project is in lifecycle
+4. **Identify Key Stakeholders** - Schedule introduction meetings
+5. **Review Core Business Flows** - Understand main processes
+6. **Access Tools** - Ensure you have access to all required tools
+7. **Review Misc Standards** - Familiarize with NashTech templates and checklists
+8. **Set Up Workspace** - Organize your local folders per structure above
+
+## Quick Reference
+
+**Need clarification?** → Schedule stakeholder meeting, document assumptions
+**New requirement?** → Use requirements template, follow approval process
+**Change request?** → Use CR template, perform impact analysis
+**Ready for UAT?** → Check UAT preparation checklist
+**Document review?** → Use verification checklist from Misc folder
+**Template needed?** → Check Misc/NashTech Standards/BA Templates
+
+---
+
+**Questions?** Contact the Product Owner or Business Analyst Lead.
+
+**New to project?** Follow the "Getting Started" section above.
+
+**Need a template?** Check `Misc/NashTech Standards/BA Templates/`.

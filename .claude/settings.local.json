@@ -9,7 +9,16 @@
       "Edit(/.claude/skills/user-story-writing/**)",
       "mcp__claude_ai_Figma__create_design_system_rules",
       "Bash(claude:*)",
-      "mcp__claude_ai_Figma__whoami"
+      "mcp__claude_ai_Figma__whoami",
+      "Bash(curl -s --max-time 30 -L https://www.nashtechglobal.com/ -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36\")",
+      "Bash(curl -s --max-time 30 -L https://www.nashtechglobal.com/ -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36\")",
+      "WebFetch(domain:www.nashtechglobal.com)",
+      "Read(//c/Users/khanhchun/.claude/plans/**)",
+      "Bash(ls \"c:/Users/khanhchun/OneDrive - NASHTECH/Personal Projects/NTGreenMarket/Requirements/Epics/EP-01 User Authentication & Access/\")",
+      "Bash(gh auth:*)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\khanhchun\\.claude\\plans"
     ]
   }
 }
