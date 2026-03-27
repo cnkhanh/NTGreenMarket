@@ -11,6 +11,23 @@ NT Green Market is a company-wide, month-long initiative that brings employees t
 - Support charitable causes through fundraising
 - Create a fun, engaging internal marketplace experience
 
+## Event Format
+
+- Physical flea market event, runs for ~2 months, held twice a year
+- The app supports the event digitally: employees set up shops, browse, and **pre-order** products ahead of the physical market day
+- Orders are collected as **pick-up only** at the physical market — no online payment, no delivery
+- App is dormant between events
+
+## Audience & Scale
+
+- Internal use only — NashTech employees
+- Expected user base: up to ~1,500 users
+
+## Deployment Strategy
+
+- **Phase 1 (Pilot):** Free hosting (e.g. Vercel + Supabase) — small user set, validate the concept
+- **Phase 2 (Full scale):** Migrate to Azure (company infrastructure) for production rollout to all ~1,500 employees
+
 ## Users / Roles
 
 - **Employee (Buyer)** — browses shops, places orders, donates to charity
@@ -32,10 +49,11 @@ NT Green Market is a company-wide, month-long initiative that brings employees t
 
 > Full epic details and user stories are in [Epics/](Epics/).
 
-## Out of Scope (TBD)
+## Out of Scope
 
-- Payment processing (real money) — to be confirmed
-- Shipping/logistics — likely pick-up only given it's an internal event
+- Online payment — confirmed out of scope; pick-up at physical market only
+- Delivery / shipping — pick-up only
+- Inventory / stock management
 
 ---
 

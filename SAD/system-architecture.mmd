@@ -1,0 +1,62 @@
+flowchart TB
+ subgraph Users["Employees"]
+        BU["Buyer"]
+        SE["Seller"]
+        AD["Admin"]
+  end
+ subgraph Pages["Pages / Routes"]
+        PUB["Public\n/ · /shops · /charities"]
+        BUYER["Buyer\n/browse · /orders · /donate"]
+        SELLER["Seller\n/my-shop · /products · /orders"]
+        ADMIN["Admin\n/dashboard · /users · /event · /charities"]
+  end
+ subgraph Frontend["Frontend
+Next.js 14 · App Router · TypeScript · Tailwind CSS · shadcn/ui
+Phase 1: Vercel  →  Phase 2: Azure Static Web Apps"]
+        Pages
+  end
+ subgraph Auth["Authentication · OIDC / JWT
+Phase 1: Supabase Auth  →  Phase 2: Azure AD / Entra ID SSO
+Admin-provisioned accounts · Event-scoped Seller roles"]
+        OIDC["OIDC Provider\nIssues JWT · Standard claims only"]
+  end
+ subgraph API["Next.js API Routes · Server Actions
+Business logic · Role enforcement · Input validation"]
+        R_AUTH[/"api/auth"/]
+        R_USERS[/"api/users"/]
+        R_SHOPS[/"api/shops\n/api/products"/]
+        R_ORDERS[/"api/orders"/]
+        R_DONATIONS[/"api/donations"/]
+        R_EVENT[/"api/events"/]
+        R_GAME[/"api/game"/]
+  end
+ subgraph DB["Database · PostgreSQL · Prisma ORM
+Phase 1: Supabase PostgreSQL  →  Phase 2: Azure Database for PostgreSQL Flexible Server"]
+        PG[("PostgreSQL\n─────────────\nevents\nusers · user_roles\nshops · products\norders · order_items\ncharities · donations\ngame_scores")]
+  end
+ subgraph STORAGE["File Storage · S3-compatible API
+Phase 1: Supabase Storage 1 GB free  →  Phase 2: Azure Blob Storage
+Product images · Shop banners · max 2 MB · JPEG / PNG / WebP"]
+        OBJ[("Object Store\nURL reference\nsaved in DB")]
+  end
+    BU -- HTTPS --> Frontend
+    SE -- HTTPS --> Frontend
+    AD -- HTTPS --> Frontend
+    BU --> BUYER & PUB
+    SE --> SELLER & PUB
+    AD --> ADMIN & PUB
+    Frontend -- OIDC login redirect --> OIDC
+    OIDC -- JWT token --> Frontend
+    Frontend -- API calls · Bearer JWT --> API
+    R_AUTH -- "Verify JWT via JWKS\nLoad event-scoped role from DB" --> OIDC
+    R_USERS -- Prisma ORM --> PG
+    R_SHOPS -- Prisma ORM --> PG
+    R_ORDERS -- Prisma ORM --> PG
+    R_DONATIONS -- Prisma ORM --> PG
+    R_EVENT -- Prisma ORM --> PG
+    R_GAME -- Prisma ORM --> PG
+    R_SHOPS -- Upload product image\nValidate size + MIME type --> OBJ
+
+    style Auth fill:#fef9c3,stroke:#ca8a04
+    style DB fill:#dbeafe,stroke:#2563eb
+    style STORAGE fill:#dcfce7,stroke:#16a34a

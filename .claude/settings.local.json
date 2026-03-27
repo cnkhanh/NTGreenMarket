@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(/.claude/skills/sprint-scope-email/**)",
+      "Edit(/.claude/skills/figma-prompt-enhancement/**)",
+      "Edit(/.claude/skills/gui-specification/**)",
+      "Edit(/.claude/skills/wireframe-generation/**)",
+      "Edit(/.claude/skills/requirements-analysis/**)",
+      "Edit(/.claude/skills/user-story-writing/**)",
+      "mcp__claude_ai_Figma__create_design_system_rules",
+      "Bash(claude:*)",
+      "mcp__claude_ai_Figma__whoami"
+    ]
+  }
+}
