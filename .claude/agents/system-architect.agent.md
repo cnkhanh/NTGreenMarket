@@ -197,6 +197,7 @@ This project follows a two-phase deployment model. All architecture decisions mu
 | File Storage | Supabase Storage | S3-compatible API; 1 GB free; built-in CDN |
 | Auth | Supabase Auth | OIDC-compatible — maps to Azure AD in Phase 2 without logic changes |
 | Cache | Upstash Redis | Serverless Redis with HTTP API; no persistent connection required |
+| Email | Brevo | 300 emails/day free; transactional + marketing; API/SMTP support |
 
 ### Phase 2 — Production (Azure)
 
@@ -208,6 +209,7 @@ This project follows a two-phase deployment model. All architecture decisions mu
 | Supabase Storage | Azure Blob Storage | Low — S3-compatible SDK, swap endpoint + credentials |
 | Supabase Auth (OIDC) | Azure Active Directory (AAD) / Entra ID | Low — swap OIDC provider config; no auth logic changes |
 | Upstash Redis | Azure Cache for Redis | Low — update connection string |
+| Brevo | Azure Communication Services | Low — swap API endpoint + credentials |
 
 ### Azure Portability Rules
 
@@ -215,10 +217,11 @@ Apply these rules to every architecture and code decision:
 
 1. **Use environment variables for all service endpoints and credentials** — never hardcode Supabase or Vercel-specific URLs in application logic.
 2. **Abstract storage behind a service interface** — e.g. `StorageService.upload()` — so swapping Supabase Storage for Azure Blob only changes the implementation, not callers.
-3. **Use standard PostgreSQL** — avoid Supabase-specific extensions or Postgres features not supported by Azure Database for PostgreSQL.
-4. **Design auth as OIDC from day one** — use standard JWT claims and OIDC scopes so the token validation layer works with both Supabase Auth and AAD.
-5. **Containerise the backend** — use Docker so the same image runs on Railway in Phase 1 and Azure Container Apps in Phase 2.
-6. **No vendor-specific SDKs in business logic** — Supabase JS client is fine in the data layer, but don't let it leak into domain/service layers.
+3. **Abstract email behind a service interface** — e.g. `EmailService.send()` — so swapping Brevo for Azure Communication Services only changes the implementation, not callers.
+4. **Use standard PostgreSQL** — avoid Supabase-specific extensions or Postgres features not supported by Azure Database for PostgreSQL.
+5. **Design auth as OIDC from day one** — use standard JWT claims and OIDC scopes so the token validation layer works with both Supabase Auth and AAD.
+6. **Containerise the backend** — use Docker so the same image runs on Railway in Phase 1 and Azure Container Apps in Phase 2.
+7. **No vendor-specific SDKs in business logic** — Supabase JS client is fine in the data layer, but don't let it leak into domain/service layers.
 
 ### Project Architecture (NT Green Market)
 
@@ -234,13 +237,13 @@ Apply these rules to every architecture and code decision:
 │                Backend API                       │
 │     Node/Express or .NET (Railway → Azure ACA)  │
 │  - Business logic, order flow, image validation  │
-└──────┬──────────────┬──────────────┬────────────┘
-       │              │              │
-┌──────▼──────┐ ┌─────▼──────┐ ┌────▼────────────┐
-│  PostgreSQL │ │   Redis    │ │  Object Storage  │
-│  (Supabase  │ │ (Upstash → │ │ (Supabase Stor. │
-│  → Azure DB)│ │ Azure Cache│ │  → Azure Blob)  │
-└─────────────┘ └────────────┘ └─────────────────┘
+└──────┬──────────────┬──────────────┬────────────┬───────┐
+       │              │              │            │       │
+┌──────▼──────┐ ┌─────▼──────┐ ┌────▼────────┐ ┌──┴──────┴────┐
+│  PostgreSQL │ │   Redis    │ │   Storage    │ │    Email     │
+│  (Supabase  │ │ (Upstash → │ │(Supabase → │ │   (Brevo →   │
+│  → Azure DB)│ │ Azure Cache│ │ Azure Blob) │ │  Azure Comm) │
+└─────────────┘ └────────────┘ └─────────────┘ └──────────────┘
        │
 ┌──────▼──────────────────────────────────────────┐
 │                  Auth (OIDC)                     │
