@@ -45,35 +45,38 @@ NT Green Market is an internal charity fundraising platform masked as a marketpl
 
 ## Design System Structure
 
-> **Status: TBD** — No design system exists yet. Update each section as tokens/components are added.
+> **Status: DEFINED** — Design system is complete. Reference [Requirements/Designs/design-system.md](Requirements/Designs/design-system.md), [Requirements/Designs/tokens.css](Requirements/Designs/tokens.css), and [Requirements/Designs/tailwind.config.ts](Requirements/Designs/tailwind.config.ts) for all UI decisions.
 
 ### 1. Design Tokens
 
-- **Location:** TBD (e.g., `src/tokens/`, `tailwind.config.ts`, CSS custom properties)
-- **Format:** TBD (e.g., CSS variables, JS/TS object, design token JSON)
-- **Transformation:** TBD (e.g., Style Dictionary, Theo)
+- **Location:** `src/styles/tokens.css` (CSS custom properties)
+- **Format:** CSS custom properties (`:root` variables)
+- **Tailwind Config:** `tailwind.config.ts` extends Tailwind with brand colors and typography
 
-When tokens are defined, map Figma variable names directly to token names. Prefer token references over raw hex values in all code.
+Use token variables in all code: `var(--color-primary)`, `var(--text-base)`, etc. Avoid raw hex values and hardcoded spacing.
 
 ### 2. Component Library
 
-- **Location:** TBD (e.g., `src/components/`, `src/ui/`)
-- **Architecture:** TBD (e.g., atomic design, feature-based)
-- **Documentation:** TBD (e.g., Storybook at `/storybook`)
+- **Location:** `src/components/` (feature-based organization)
+- **UI Components:** Use shadcn/ui for base components (buttons, forms, modals, tables)
+- **Custom Components:** Build feature-specific components on top of shadcn/ui
+- **Documentation:** Reference [Requirements/Designs/design-system.md](Requirements/Designs/design-system.md) for component specs (buttons, cards, badges, forms, navigation)
 
-When implementing Figma designs, always check this location for existing components before generating new ones.
+Always check existing components before creating new ones. Reuse shadcn/ui components.
 
 ### 3. Styling Approach
 
-- **Methodology:** TBD (e.g., Tailwind CSS, CSS Modules, Styled Components)
-- **Global styles:** TBD (e.g., `src/styles/globals.css`)
-- **Responsive breakpoints:** TBD
+- **Methodology:** Tailwind CSS + CSS custom properties (tokens)
+- **Global styles:** `src/styles/globals.css` + `src/styles/tokens.css`
+- **Responsive breakpoints:** sm (640px), md (768px), lg (1024px), xl (1280px), 2xl (1536px)
+- **Mobile-first:** Design for mobile first, enhance for larger screens
 
 ### 4. Icon System
 
-- **Location:** TBD (e.g., `src/icons/`, `src/assets/icons/`)
-- **Usage pattern:** TBD (e.g., `<Icon name="cart" />`, SVG imports, icon font)
-- **Naming convention:** TBD (e.g., kebab-case matching Figma layer names)
+- **Library:** Lucide React (ships with shadcn/ui)
+- **Usage pattern:** `import { IconName } from 'lucide-react'` → `<IconName size={24} />`
+- **Sizes:** 16px (inline), 20px (buttons), 24px (standalone)
+- **No emojis as UI icons** — SVG only
 
 ### 5. Asset Management
 
@@ -130,3 +133,4 @@ These rules apply whenever implementing designs from Figma using `get_design_con
 - Keep responses concise — no trailing summaries after completing a task.
 - Always read a file before editing it.
 - Do not add features, refactors, or improvements beyond what is explicitly asked.
+- Follow Next.js best practices — use `.claude/skills/next-best-practices/SKILL.md` for guidance on routing, data fetching, error handling, and performance optimization.
