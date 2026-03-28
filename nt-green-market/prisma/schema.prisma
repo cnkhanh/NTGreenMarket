@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
@@ -12,4 +9,162 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+// ─── Enums ────────────────────────────────────────────────────────────────────
+
+enum Location {
+  HA_NOI
+  DA_NANG
+  HO_CHI_MINH
+}
+
+enum Role {
+  SELLER // Event-scoped; can create/edit shops for this event
+  BUYER  // Default role; can browse/order
+}
+
+enum EventStatus {
+  DRAFT
+  PUBLISHED
+  CLOSED
+}
+
+enum ShopMemberRole {
+  OWNER  // Created the shop; full control including member management
+  EDITOR // Write access when shop.is_open = true; read-only otherwise
+}
+
+// ─── Models ───────────────────────────────────────────────────────────────────
+
+model User {
+  id         String   @id @default(cuid())
+  email      String   @unique
+  name       String   @db.VarChar(100)
+  location   Location
+  is_admin   Boolean  @default(false)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  roles           UserRole[]
+  shopMemberships ShopMember[]
+  orders          Order[]
+
+  @@index([email])
+  @@index([location])
+  @@map("users")
+}
+
+// Event-scoped role assignments. If no record exists for (user, event), user
+// defaults to BUYER for that event. ADMIN is global and stored on User.is_admin.
+model UserRole {
+  id          String   @id @default(cuid())
+  user_id     String
+  event_id    String
+  role        Role
+  assigned_at DateTime @default(now())
+  assigned_by String? // user_id of the admin who assigned the role
+  updated_at  DateTime @updatedAt
+
+  user  User  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  event Event @relation(fields: [event_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, event_id])
+  @@index([event_id])
+  @@map("user_roles")
+}
+
+model Event {
+  id              String      @id @default(cuid())
+  name            String
+  description     String?
+  status          EventStatus @default(DRAFT)
+  start_date      DateTime
+  end_date        DateTime
+  donation_target Int?
+  created_at      DateTime    @default(now())
+  updated_at      DateTime    @updatedAt
+
+  roles UserRole[]
+  shops Shop[]
+
+  @@index([status])
+  @@map("events")
+}
+
+// A shop belongs to one event and one location (inherited from the OWNER's
+// location at creation time and cannot be changed).
+model Shop {
+  id          String   @id @default(cuid())
+  event_id    String
+  name        String
+  description String?
+  banner_url  String?
+  logo_url    String?
+  location    Location
+  // Controls EDITOR write access. When false, EDITORs are read-only.
+  // Does not affect OWNER access. Separate from "open for buyer orders".
+  is_open     Boolean  @default(false)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  event    Event        @relation(fields: [event_id], references: [id])
+  members  ShopMember[]
+  products Product[]
+  orders   Order[]
+
+  @@index([event_id])
+  @@index([location])
+  @@map("shops")
+}
+
+// Maps users to a shop with a role. Any logged-in user can be an EDITOR.
+// Only users with a SELLER UserRole for the event can be OWNER.
+// One OWNER per shop — enforced in application logic.
+model ShopMember {
+  shop_id   String
+  user_id   String
+  role      ShopMemberRole @default(EDITOR)
+  joined_at DateTime       @default(now())
+
+  shop Shop @relation(fields: [shop_id], references: [id], onDelete: Cascade)
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@id([shop_id, user_id])
+  @@map("shop_members")
+}
+
+// Stub — full model defined in EP-05
+model Product {
+  id          String   @id @default(cuid())
+  shop_id     String
+  name        String
+  description String?
+  price       Int // In smallest currency unit (e.g. VND)
+  photo_url   String?
+  category    String?
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  shop Shop @relation(fields: [shop_id], references: [id], onDelete: Cascade)
+
+  @@index([shop_id])
+  @@map("products")
+}
+
+// Stub — full model defined in EP-07
+model Order {
+  id         String   @id @default(cuid())
+  shop_id    String
+  user_id    String
+  status     String   @default("PENDING")
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  shop Shop @relation(fields: [shop_id], references: [id])
+  user User @relation(fields: [user_id], references: [id])
+
+  @@index([shop_id])
+  @@index([user_id])
+  @@map("orders")
 }
