@@ -15,7 +15,10 @@
       "WebFetch(domain:www.nashtechglobal.com)",
       "Read(//c/Users/khanhchun/.claude/plans/**)",
       "Bash(ls \"c:/Users/khanhchun/OneDrive - NASHTECH/Personal Projects/NTGreenMarket/Requirements/Epics/EP-01 User Authentication & Access/\")",
-      "Bash(gh auth:*)"
+      "Bash(gh auth:*)",
+      "Bash(printf \"n\\\\nn\\\\n\")",
+      "Bash(npx create-next-app@latest nt-green-market --typescript --tailwind --eslint --app --src-dir --no-turbopack --import-alias \"@/*\")",
+      "Bash(npm install:*)"
     ],
     "additionalDirectories": [
       "c:\\Users\\khanhchun\\.claude\\plans"

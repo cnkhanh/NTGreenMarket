@@ -1,26 +1,135 @@
 @import "tailwindcss";
+@import "../styles/tokens.css";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* ─── Brand Colors ─────────────────────────────────────────── */
+  --color-primary:       var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-primary-dark:  var(--color-primary-dark);
+  --color-secondary:     var(--color-secondary);
+  --color-accent:        var(--color-accent);
+  --color-accent-light:  var(--color-accent-light);
+
+  /* ─── Neutrals ─────────────────────────────────────────────── */
+  --color-gray-50:  var(--color-gray-50);
+  --color-gray-200: var(--color-gray-200);
+  --color-gray-400: var(--color-gray-400);
+  --color-gray-500: var(--color-gray-500);
+  --color-gray-700: var(--color-gray-700);
+  --color-gray-900: var(--color-gray-900);
+  --color-white:    var(--color-white);
+
+  /* ─── Semantic Colors ──────────────────────────────────────── */
+  --color-success: var(--color-success);
+  --color-warning: var(--color-warning);
+  --color-info:    var(--color-info);
+  --color-error:   var(--color-error);
+
+  /* ─── Typography ───────────────────────────────────────────── */
+  --font-heading: var(--font-heading);
+  --font-sans:    var(--font-sans);
+
+  /* ─── Border Radius ────────────────────────────────────────── */
+  --radius-sm:   var(--radius-sm);
+  --radius-md:   var(--radius-md);
+  --radius-lg:   var(--radius-lg);
+  --radius-full: var(--radius-full);
+
+  /* ─── Shadows ──────────────────────────────────────────────── */
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+
+  /* ─── shadcn/ui semantic tokens wired to brand ─────────────── */
+  --color-background:         var(--background);
+  --color-foreground:         var(--foreground);
+  --color-card:               var(--card);
+  --color-card-foreground:    var(--card-foreground);
+  --color-popover:            var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-muted:              var(--muted);
+  --color-muted-foreground:   var(--muted-foreground);
+  --color-border:             var(--border);
+  --color-input:              var(--input);
+  --color-ring:               var(--ring);
+  --color-destructive:        var(--destructive);
+
+  /* radius scale for shadcn */
+  --radius-xl:  calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ─── shadcn semantic tokens — wired to NashTech brand ─────────── */
+:root {
+  --background:              #ffffff;
+  --foreground:              #2A2E3A;    /* gray-900 */
+  --card:                    #ffffff;
+  --card-foreground:         #2A2E3A;
+  --popover:                 #ffffff;
+  --popover-foreground:      #2A2E3A;
+  --primary:                 #D6001C;   /* NashTech Red */
+  --primary-foreground:      #ffffff;
+  --secondary:               #6A1F7A;   /* NashTech Purple */
+  --secondary-foreground:    #ffffff;
+  --muted:                   #F6F7F8;   /* gray-50 */
+  --muted-foreground:        #6C7685;   /* gray-500 */
+  --accent:                  #2D7A4F;   /* Market Green */
+  --accent-foreground:       #ffffff;
+  --destructive:             #D6001C;
+  --border:                  #D9D9D9;   /* gray-200 */
+  --input:                   #D9D9D9;
+  --ring:                    #D6001C;
+  --radius:                  4px;
+}
+
+/* ─── Base styles ──────────────────────────────────────────────── */
+@layer components {
+  .btn-primary {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-primary);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: none;
+    transition: box-shadow 150ms ease;
+  }
+  .btn-primary::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-brand);
+    opacity: 0;
+    transition: opacity 150ms ease;
+  }
+  .btn-primary:hover {
+    box-shadow: 4px 4px 0px 0px var(--color-secondary);
+  }
+  .btn-primary:hover::before {
+    opacity: 1;
+  }
+  .btn-primary > * {
+    position: relative;
+    z-index: 1;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply outline-none;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    line-height: var(--leading-body);
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    line-height: var(--leading-heading);
+    color: var(--color-gray-900);
+  }
 }

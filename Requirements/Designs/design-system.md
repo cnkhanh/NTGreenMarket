@@ -165,7 +165,7 @@ Minimal rounding to match NashTech corporate aesthetic.
 
 | Variant | Style | Usage |
 |---|---|---|
-| `primary` | Red fill, white text | Primary actions (Place Order, Donate) |
+| `primary` | Red fill → brand gradient on hover, white text | Primary actions (Place Order, Donate) |
 | `secondary` | Red border, red text, transparent | Secondary actions |
 | `ghost` | No border, gray text | Tertiary actions |
 | `success` | Green fill, white text | Confirm order, Shop open |
@@ -209,12 +209,16 @@ Minimal rounding to match NashTech corporate aesthetic.
 
 ### Forms / Inputs
 
-- Border: `1px solid #D9D9D9`
-- Focus ring: `2px solid #D6001C`
-- Border radius: `rounded` (4px)
-- Height: `44px` minimum
-- Error state: red border + red helper text below
-- Label: above input, `text-sm font-medium text-gray-700`
+- Background: `#F6F7F8` (gray-50)
+- Border: none on sides/top — **bottom border only**, `2px solid #D9D9D9` default
+- Border radius: `0` (flat, no rounding)
+- Height: `52px` minimum
+- Label: **floating** — sits inside field as placeholder, animates to top-left small on focus/fill
+- Label default: `16px #99A4B5` (gray-400)
+- Label floated: `12px #6C7685` (gray-500)
+- Focus: bottom border replaced by **brand gradient** (`linear-gradient(270deg, #D6001C, #6A1F7A)`)
+- Error state: red bottom border + red helper text below
+- Dropdown: same field style + right-aligned chevron icon
 
 ---
 
